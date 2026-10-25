@@ -413,11 +413,15 @@ export class Stream extends sdk.Models.Stream {
       return logo.format ? levelByFormat[logo.format] : 0
     }
 
+    function inUse(logo: sdk.Models.Logo): number {
+      return logo.in_use ? 1 : 0
+    }
+
     function size(logo: sdk.Models.Logo): number {
       return Math.abs(512 - logo.width) + Math.abs(512 - logo.height)
     }
 
-    return logos.sortBy([format, size], ['desc', 'asc'], false)
+    return logos.sortBy([inUse, format, size], ['desc', 'desc', 'asc'], false)
   }
 
   getFilepath(): string {
